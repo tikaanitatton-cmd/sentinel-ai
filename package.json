@@ -11,8 +11,8 @@
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "@splinetool/react-spline": "^3.16.3",
-    "@splinetool/runtime": "^1.0.91"
+    "@splinetool/react-spline": "^2.2.1",
+    "@splinetool/runtime": "^1.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
