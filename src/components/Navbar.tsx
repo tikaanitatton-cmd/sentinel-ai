@@ -1,23 +1,15 @@
-﻿import { motion } from "framer-motion";
-import { Globe } from "lucide-react";
+﻿import { Globe } from "lucide-react";
 
 export function Navbar() {
   return (
-    <motion.nav
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      className="relative z-20 px-6 py-6 w-full"
-    >
+    <nav className="relative z-20 px-6 py-6 w-full">
       <div className="liquid-glass rounded-full px-6 py-3 flex items-center justify-between max-w-5xl mx-auto">
-        {/* Left side - Logo and nav links */}
         <div className="flex items-center gap-8">
-          {/* Logo */}
           <div className="flex items-center gap-2">
             <Globe className="w-6 h-6 text-white" />
             <span className="text-white font-semibold text-lg">Asme</span>
           </div>
 
-          {/* Nav links */}
           <div className="hidden md:flex items-center gap-8 text-white/80 text-sm font-medium">
             <a href="#" className="hover:text-white transition-colors duration-300">
               Features
@@ -31,7 +23,6 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Right side - Buttons */}
         <div className="flex items-center gap-4">
           <button className="text-white hover:text-white/80 transition-colors text-sm font-medium cursor-pointer">
             Sign Up
@@ -41,6 +32,6 @@ export function Navbar() {
           </button>
         </div>
       </div>
-    </motion.nav>
+    </nav>
   );
 }
