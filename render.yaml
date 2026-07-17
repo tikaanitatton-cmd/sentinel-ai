@@ -3,5 +3,5 @@ services:
     name: sentinel-ai
     env: node
     buildCommand: npm install && npm run build
-    startCommand: npm run preview
+    startCommand: npx serve -s dist -l 3000
     rootDir: ./
