@@ -1,119 +1,143 @@
-﻿import { cn } from "@/lib/cn";
-import { SplineScene } from "./SplineScene";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { ArrowRight, Check } from "lucide-react";
 
 export function Hero() {
+  const [showForm, setShowForm] = useState(false);
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [placeholder, setPlaceholder] = useState("");
+
+  const placeholderText = submitted
+    ? "You Will Receive Notifications By Email"
+    : "Enter Your Email Here For Early Access";
+
+  // Typewriter effect for placeholder
+  useEffect(() => {
+    if (!showForm) {
+      setPlaceholder("");
+      return;
+    }
+
+    let currentIndex = 0;
+    const interval = setInterval(() => {
+      if (currentIndex <= placeholderText.length) {
+        setPlaceholder(placeholderText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 60);
+
+    return () => clearInterval(interval);
+  }, [showForm, placeholderText]);
+
+  // Auto-reset after submission
+  useEffect(() => {
+    if (submitted) {
+      const timeout = setTimeout(() => {
+        setShowForm(false);
+        setSubmitted(false);
+        setEmail("");
+      }, 4000);
+      return () => clearTimeout(timeout);
+    }
+  }, [submitted]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
   return (
-    <section
-      className={cn(
-        "relative min-h-screen",
-        "flex items-end",
-        "bg-hero-bg overflow-hidden"
-      )}
-    >
-      {/* Spline 3D Background */}
-      <SplineScene />
+    <section className="relative flex-1 flex flex-col items-center justify-center px-6">
+      <div className="relative z-10 text-center max-w-5xl mx-auto flex flex-col items-center justify-center w-full gap-12">
+        {/* Tagline */}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-white/80 text-[10px] md:text-[11px] font-medium tracking-[0.2em] uppercase mb-4"
+        >
+          BUILD A NO-CODE AI APP IN MINUTES
+        </motion.p>
 
-      {/* Dark Overlay */}
-      <div
-        className={cn(
-          "absolute inset-0",
-          "bg-black/40 backdrop-blur-[2px]"
-        )}
-      />
-
-      {/* Content Container */}
-      <div
-        className={cn(
-          "relative z-10 pointer-events-none",
-          "w-full max-w-[90%] sm:max-w-md lg:max-w-2xl",
-          "px-6 md:px-10 pb-16 md:pb-20 pt-32"
-        )}
-      >
         {/* Heading */}
-        <h1
-          className={cn(
-            "opacity-0 animate-fade-up",
-            "text-[clamp(3rem,8vw,6rem)]",
-            "font-bold leading-[1.05] tracking-[-0.05em]",
-            "text-foreground mb-2 md:mb-4 uppercase"
-          )}
-          style={{ animationDelay: "0.2s" }}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          style={{ fontFamily: "'Instrument Serif', serif" }}
+          className="text-4xl md:text-[64px] font-medium tracking-[-0.01em] leading-[1.1] mb-6 bg-gradient-to-b from-white via-white/95 to-white/70 bg-clip-text text-transparent max-w-4xl"
         >
-          SENTINEL <span className="text-primary">AI</span>
-        </h1>
+          A new way to think
+          <br className="hidden md:block" />
+          and create with computers
+        </motion.h1>
 
-        {/* Subheading */}
-        <h2
-          className={cn(
-            "opacity-0 animate-fade-up",
-            "text-foreground/80",
-            "text-[clamp(1.125rem,2.5vw,1.875rem)]",
-            "font-light mb-3 md:mb-6"
-          )}
-          style={{ animationDelay: "0.4s" }}
+        {/* CTA Area */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="min-h-[50px] mt-2"
         >
-          We implement security correctly.
-        </h2>
-
-        {/* Description */}
-        <p
-          className={cn(
-            "opacity-0 animate-fade-up",
-            "text-muted-foreground",
-            "text-[clamp(0.875rem,1.5vw,1.25rem)]",
-            "font-light mb-4 md:mb-8 max-w-lg"
-          )}
-          style={{ animationDelay: "0.55s" }}
-        >
-          Enterprise security systems built in days. AI-powered surveillance
-          deployed with zero-trust architecture. Smart access control set up for
-          your entire facility. All of it done right, not just fast.
-        </p>
-
-        {/* CTA Buttons */}
-        <div
-          className={cn(
-            "opacity-0 animate-fade-up",
-            "flex flex-wrap gap-3 font-bold",
-            "pointer-events-auto"
-          )}
-          style={{ animationDelay: "0.7s" }}
-        >
-          <button
-            className={cn(
-              "bg-primary text-primary-foreground",
-              "px-6 py-3 md:px-8 md:py-4 text-sm",
-              "rounded-sm cursor-pointer",
-              "hover:brightness-110 transition-all",
-              "active:scale-[0.97]"
+          <AnimatePresence mode="wait">
+            {!showForm ? (
+              <motion.button
+                key="button"
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setShowForm(true)}
+                className="px-10 py-3 text-[14px] font-medium border border-white/10 rounded-full hover:border-white/30 hover:bg-white/[0.02] transition-all duration-300 text-white/90 backdrop-blur-sm cursor-pointer"
+              >
+                Get early access
+              </motion.button>
+            ) : (
+              <motion.form
+                key="form"
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onSubmit={handleSubmit}
+                className="flex items-center gap-2 pl-5 pr-1.5 py-1.5 text-[14px] font-medium border border-white/20 rounded-full bg-white/[0.02] backdrop-blur-sm w-full max-w-[320px] focus-within:border-white/40 transition-colors duration-300"
+              >
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={placeholder}
+                  autoFocus
+                  required
+                  className="flex-1 bg-transparent text-white placeholder-white/45 outline-none text-sm"
+                />
+                <button
+                  type="submit"
+                  className="flex items-center justify-center w-8 h-8 text-white hover:opacity-80 transition-opacity"
+                >
+                  {submitted ? (
+                    <Check className="w-4 h-4" />
+                  ) : (
+                    <ArrowRight className="w-4 h-4" />
+                  )}
+                </button>
+              </motion.form>
             )}
-          >
-            Book a Call
-          </button>
-          <button
-            className={cn(
-              "bg-white text-background",
-              "px-6 py-3 md:px-8 md:py-4 text-sm",
-              "rounded-sm cursor-pointer",
-              "hover:brightness-90 transition-all",
-              "active:scale-[0.97]"
-            )}
-          >
-            Our Work
-          </button>
-        </div>
+          </AnimatePresence>
+        </motion.div>
 
-        {/* Trust Line */}
-        <p
-          className={cn(
-            "opacity-0 animate-fade-up",
-            "text-muted-foreground/60 text-xs font-light",
-            "mt-4 md:mt-6"
-          )}
-          style={{ animationDelay: "0.85s" }}
+        {/* Play Video Demo Link */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="text-white/80 hover:text-white/40 transition-colors duration-300 text-[13px] font-medium tracking-wide cursor-pointer"
         >
-          Trusted security partner. Columbus, OH. 12 systems deployed.
-        </p>
+          Play Video Demo
+        </motion.div>
       </div>
     </section>
   );

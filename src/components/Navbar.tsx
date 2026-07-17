@@ -1,57 +1,46 @@
-﻿import { cn } from "@/lib/cn";
+﻿import { motion } from "motion/react";
+import { Globe } from "lucide-react";
 
 export function Navbar() {
-  const navLinks = [
-    "Services",
-    "About Us",
-    "Projects",
-    "Team",
-    "Contacts",
-  ];
-
   return (
-    <nav
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50",
-        "flex justify-between items-center",
-        "px-8 lg:px-16 py-5",
-        "backdrop-blur-sm"
-      )}
+    <motion.nav
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      className="relative z-20 px-6 py-6 w-full"
     >
-      {/* Logo */}
-      <div className="text-foreground text-xl font-semibold tracking-tight">
-        SENTINEL
-      </div>
+      <div className="liquid-glass rounded-full px-6 py-3 flex items-center justify-between max-w-5xl mx-auto">
+        {/* Left side - Logo and nav links */}
+        <div className="flex items-center gap-8">
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+            <Globe className="w-6 h-6 text-white" />
+            <span className="text-white font-semibold text-lg">Asme</span>
+          </div>
 
-      {/* Nav Links - Hidden on mobile */}
-      <div className="hidden md:flex gap-8">
-        {navLinks.map((link) => (
-          <a
-            key={link}
-            href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}
-            className={cn(
-              "text-sm text-muted-foreground hover:text-foreground",
-              "transition-colors uppercase tracking-widest"
-            )}
-          >
-            {link}
-          </a>
-        ))}
-      </div>
+          {/* Nav links */}
+          <div className="hidden md:flex items-center gap-8 text-white/80 text-sm font-medium">
+            <a href="#" className="hover:text-white transition-colors duration-300">
+              Features
+            </a>
+            <a href="#" className="hover:text-white transition-colors duration-300">
+              Pricing
+            </a>
+            <a href="#" className="hover:text-white transition-colors duration-300">
+              About
+            </a>
+          </div>
+        </div>
 
-      {/* CTA Button - Hidden on mobile */}
-      <button
-        className={cn(
-          "hidden md:inline-flex",
-          "text-foreground bg-nav-button hover:bg-nav-button/80",
-          "active:scale-[0.97] transition-all",
-          "rounded-lg uppercase text-xs tracking-widest",
-          "px-6 py-3 lg:py-3.5",
-          "font-semibold"
-        )}
-      >
-        Get Quote
-      </button>
-    </nav>
+        {/* Right side - Buttons */}
+        <div className="flex items-center gap-4">
+          <button className="text-white hover:text-white/80 transition-colors text-sm font-medium cursor-pointer">
+            Sign Up
+          </button>
+          <button className="liquid-glass rounded-full px-6 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity cursor-pointer">
+            Login
+          </button>
+        </div>
+      </div>
+    </motion.nav>
   );
 }
