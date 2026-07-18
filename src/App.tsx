@@ -1,23 +1,12 @@
-﻿import { Navbar } from "./components/Navbar";
-import { Hero } from "./components/Hero";
-
-function App() {
+﻿function App() {
   return (
-    <main className="relative bg-black h-screen w-screen flex flex-col overflow-hidden selection:bg-white selection:text-black shrink-0">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover opacity-100"
-        >
-          <source src="https://stream.mux.com/kimF2ha9zLrX64H00UgLGPflCzNtl1T0215MlAmeOztv8.m3u8" type="application/x-mpegURL" />
-        </video>
-      </div>
-      <Navbar />
-      <Hero />
-    </main>
+    <div style={{ width: "100vw", height: "100vh", background: "black", display: "flex", alignItems: "center", justifyContent: "center", color: "white", flexDirection: "column", gap: "20px" }}>
+      <h1 style={{ fontSize: "48px", fontWeight: "600" }}>Welcome to Sentinel AI</h1>
+      <p style={{ fontSize: "18px" }}>Dark hero landing page</p>
+      <button style={{ padding: "12px 24px", fontSize: "16px", background: "white", color: "black", border: "none", borderRadius: "8px", cursor: "pointer" }}>
+        Get Early Access
+      </button>
+    </div>
   );
 }
 
